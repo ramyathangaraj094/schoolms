@@ -14,8 +14,9 @@ import {
 
 function Sidebar({ setActivePage, logout }) {
   return (
-    <div className="w-64 bg-indigo-700 text-white p-4">
-      <h2 className="text-xl font-bold mb-6">EduSmart</h2>
+    <div className="w-64 bg-indigo-900 text-xl text-white p-4">
+       <h2 className="text-2xl  font-bold mb-6"><span className="text-4xl">E</span>DU<span className="text-4xl">S</span>MART</h2>
+
 
       <button
         onClick={() => setActivePage("dashboard")}

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 
+
 function UserMgmt() {
   const [activeTab, setActiveTab] = useState("students");
+  const [fileName, setFileName] = useState("");
+ 
+  
 
   // ================= STUDENTS =================
   const [students, setStudents] = useState(() => {
@@ -47,6 +51,7 @@ function UserMgmt() {
       name: "",
       id: "",
       cls: "",
+      guardian: "",
       role: "",
       status: "Active",
       date: "",
@@ -104,7 +109,7 @@ function UserMgmt() {
   });
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-skyblue-200">
 
        <div class="flex justify-between items-center mb-6">
      <input
@@ -115,16 +120,16 @@ function UserMgmt() {
         />
 
       <div class="flex gap-2">
-        <button class="bg-gray-200 px-4 py-2 rounded">Import Excel</button>
-         <button class="bg-indigo-600 text-white px-4 py-2 rounded"
+       
+         <button class="bg-indigo-600 text-white px-4 py-2 rounded-xl"
             onClick={() => {
               setActiveTab("students");
               setShowForm(true);
               setEditingId(null);
             }}
-            className="bg-white px-5 py-2 rounded-xl font-semibold"
+            className="bg-indigo-600 text-white px-5 py-2 rounded-xl font-semibold"
           >
-            Add Student
+           + Add Student
           </button>
       
       </div>
@@ -132,11 +137,11 @@ function UserMgmt() {
 
        
        <h2 class="text-2xl font-bold">User Management</h2>
-    <p class="text-gray-500 mb-4">Manage students, staff and parents</p>
+    <p class="text-gray-500 mb-4">Manage students, staff and parents across the school</p>
 
       {/* HEADER */}
       <div className="flex justify-between mb-4">
-        <div className="mt-8 flex gap-4 bg-cyan-50 p-3 rounded-2xl w-fit">
+        <div className="mt-8 flex gap-4 bg-gray-100 p-3 rounded-2xl w-fit">
 
           <button
             onClick={() => {
@@ -144,9 +149,8 @@ function UserMgmt() {
               setShowForm(true);
               setEditingId(null);
             }}
-            className="bg-white px-5 py-2 rounded-xl font-semibold"
-          >
-            Add Student
+            className="bg-white px-5 py-2 rounded-xl font-semibold">
+            Students
           </button>
 
           <button
@@ -157,14 +161,43 @@ function UserMgmt() {
             }}
             className="bg-white px-5 py-2 rounded-xl font-semibold"
           >
-            Add Staff
+            Staff
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("staff");
+              setShowForm(true);
+              setEditingId(null);
+            }}
+            className="bg-white px-5 py-2 rounded-xl font-semibold"
+          >
+            Parents
           </button>
 
         </div>
       </div>
 
       {/* FILTER */}
+      <div className="flex justify-between gap-5">
+  <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search name / id"
+          className="border px-5 py-2  rounded-xl w-1/3 h-10"
+        />
+
+
       <div className="mb-4">
+         <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="border p-2"
+        >
+          <option value="">All Grade</option>
+          <option>Active</option>
+          <option>Inactive</option>
+        </select>
+
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
@@ -176,6 +209,7 @@ function UserMgmt() {
         </select>
       </div>
 
+      </div>
       {/* FORM */}
       {showForm && (
         <div className="bg-white p-4 border rounded mb-4 grid grid-cols-3 gap-2">
@@ -199,7 +233,7 @@ function UserMgmt() {
           {activeTab === "students" ? (
             <input
               name="cls"
-              placeholder="Class"
+              placeholder="GRADE/CLASS"
               value={formData.cls}
               onChange={handleChange}
               className="border p-2"
@@ -223,7 +257,13 @@ function UserMgmt() {
             <option>Active</option>
             <option>Inactive</option>
           </select>
-
+ <input
+              name="guardian"
+              placeholder="GUARDIAN"
+              value={formData.guardian}
+              onChange={handleChange}
+              className="border p-2"
+            />
           <input
             type="date"
             name="date"
@@ -246,13 +286,15 @@ function UserMgmt() {
       <div className="bg-white border rounded">
         <table className="w-full">
 
-          <thead className="bg-gray-200">
+          <thead className="bg-gray-300  text-left h-10">
             <tr>
-              <th>Name</th>
-              <th>ID</th>
-              <th>{activeTab === "students" ? "Class" : "Role"}</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th>STUDENT DETAILS</th>
+              <th> STUDENT ID</th>
+              <th>{activeTab === "students" ? "GRADE/CLASS" : "Role"}</th>
+              <th>GUARDIAN</th>
+              <th>STATUS</th>
+              <th>JOINED DATE</th>
+              <th>ACTION</th>
             </tr>
           </thead>
 
@@ -263,7 +305,9 @@ function UserMgmt() {
                 <td>{s.name}</td>
                 <td>{s.id}</td>
                 <td>{activeTab === "students" ? s.cls : s.role}</td>
+                <td>{s.guardian}</td>
                 <td>{s.status}</td>
+                 <td>{s.date}</td>
 
                 <td className="flex gap-2">
                   <button

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-function Dashboard() {
+function Pdashboard() {
+
+
+   
 
   const [students, setStudents] = useState([]);
   const [attendance, setAttendance] = useState([]);
@@ -15,6 +18,10 @@ function Dashboard() {
     setStudents(s);
     setAttendance(a);
   }, []);
+
+
+
+
 
   // LIVE COUNTS
   const totalStudents = students.length;
@@ -46,24 +53,14 @@ function Dashboard() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <div className="flex items-center gap-4">
-
-          <button className="bg-white px-4 py-2 rounded-lg shadow">
-            Add Student
-          </button>
-
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
-            New Announcement
-          </button>
-
-        </div>
+        
       </div>
 
       {/* TITLE */}
       <div className="mb-6">
         <h2 className="text-3xl font-bold">Dashboard</h2>
         <p className="text-gray-500">
-          Welcome Back, School Admin
+          Welcome Back, School Parent
         </p>
       </div>
 
@@ -89,12 +86,7 @@ function Dashboard() {
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl shadow">
-          <h3 className="text-gray-500">Revenue</h3>
-          <p className="text-3xl font-bold mt-2">
-            ₹{revenue}
-          </p>
-        </div>
+      
 
       </div>
 
@@ -158,4 +150,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Pdashboard;

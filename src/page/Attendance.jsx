@@ -81,29 +81,34 @@ function Attendance() {
     <div className="p-6">
 
       {/* HEADER */}
-      <h1 className="text-2xl font-bold mb-4">Attendance System</h1>
-
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Attendance</h1>
+          <p> Track and manage student staff attendance</p>
+        </div>
+        <div>
+          <button class="bg-white px-4 py-2 rounded-xl">Import Excel</button>
+        </div>
+      </div>
       {/* SWITCH BUTTONS */}
-      <div className="flex gap-3 mb-4">
+      <div className="flex gap-3 mb-4 mt-10">
 
         <button
           onClick={() => setActiveTab("student")}
-          className={`px-4 py-2 rounded ${
-            activeTab === "student"
+          className={`px-4 py-2 rounded ${activeTab === "student"
               ? "bg-indigo-600 text-white"
               : "bg-gray-200"
-          }`}
+            }`}
         >
           Student Attendance
         </button>
 
         <button
           onClick={() => setActiveTab("staff")}
-          className={`px-4 py-2 rounded ${
-            activeTab === "staff"
+          className={`px-4 py-2 rounded ${activeTab === "staff"
               ? "bg-indigo-600 text-white"
               : "bg-gray-200"
-          }`}
+            }`}
         >
           Staff Attendance
         </button>
@@ -119,7 +124,7 @@ function Attendance() {
       />
 
       {/* DASHBOARD */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-4 gap-4 mb-6">
 
         <div className="bg-white p-4 shadow rounded text-center">
           <p className="text-green-600 font-bold text-xl">{presentCount}</p>
@@ -135,7 +140,10 @@ function Attendance() {
           <p className="text-yellow-600 font-bold text-xl">{lateCount}</p>
           <p>Late</p>
         </div>
-
+ <div className="bg-white p-4 shadow rounded text-center">
+          <p className="text-yellow-600 font-bold text-xl">{}</p>
+          <p>Excused</p>
+        </div>
       </div>
 
       {/* TABLE */}
@@ -145,10 +153,11 @@ function Attendance() {
 
           <thead className="bg-gray-100">
             <tr>
-              <th className="p-3">Name</th>
-              <th>ID</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th className="p-3">STUDENT</th>
+              <th>ROLL NO</th>
+              <th>CLASS</th>
+              <th>STATUS</th>
+              <th>REMARKS</th>
             </tr>
           </thead>
 

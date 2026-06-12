@@ -127,8 +127,9 @@ function Academic() {
           <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
         </div>
       </div>
+<div className="flex justify-between ">
   <div>
-        <h1 class="text-4xl font-bold">
+        <h1 class="text-2xl font-bold">
           Academic Management
         </h1>
 
@@ -137,19 +138,22 @@ function Academic() {
         </p>
       
       </div>
-      
+      <div>
+        <button className="bg-indigo-700 text-white px-8 py-2 rounded-xl shadow" onClick={() => setShowClassForm(!showClassForm)}>+ Add Class</button>
+      </div>
+      </div>
       {/* TABS */}
       <div className="mt-8 flex gap-4 bg-cyan-50 p-3 rounded-2xl w-fit">
-        <button className="bg-white px-5 py-2 rounded-xl font-semibold" onClick={() => setActiveTab("classes")}>Classes</button>
+        <button className="bg-white px-5 py-2 rounded-xl font-semibold" onClick={() => setActiveTab("classes")}>Classes & sections</button>
         <button onClick={() => setActiveTab("subjects")}>Subjects</button>
         <button onClick={() => setActiveTab("timetable")}>Timetable</button>
-        <button onClick={() => setActiveTab("exams")}>Exams</button>
+        <button onClick={() => setActiveTab("exams")}>Exams & Results</button>
       </div>
 
       {/* ================= CLASSES ================= */}
       {activeTab === "classes" && (
         <div>
-           <button className="bg-indigo-700 text-white px-6 py-3 rounded-xl shadow" onClick={() => setShowClassForm(!showClassForm)}>Add Class</button>
+           
 
           {showClassForm && (
             <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
@@ -309,13 +313,19 @@ function Academic() {
                   />
 
                   <input
-                    placeholder="Class Name"
+                    placeholder="HRS/WK"
                     onChange={(e) =>
-                      setSubjectForm({ ...subjectForm, className: e.target.value })
+                      setSubjectForm({ ...subjectForm, hrs: e.target.value })
                     }
                     className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
-
+ <input
+                    placeholder="GRADE"
+                    onChange={(e) =>
+                      setSubjectForm({ ...subjectForm, grade: e.target.value })
+                    }
+                    className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
                 </div>
 
                 {/* BUTTONS */}
@@ -346,11 +356,12 @@ function Academic() {
             {/* HEADER */}
             <thead className="bg-gray-200">
               <tr>
-                <th className="p-3 text-left">Subject Name</th>
-                <th className="p-3 text-left">Code</th>
-                <th className="p-3 text-left">Teacher</th>
-                <th className="p-3 text-left">Class</th>
-                <th className="p-3 text-left">Action</th>
+                <th className="p-3 text-left">SUBJECT NAME</th>
+                <th className="p-3 text-left">CODE</th>
+                <th className="p-3 text-left">TEACHER</th>
+                <th className="p-3 text-left">HRS/WK</th>
+                <th className="p-3 text-left">GRADE</th>
+                <th className="p-3 text-left">ACTION</th>
               </tr>
             </thead>
 
@@ -362,7 +373,8 @@ function Academic() {
                   <td className="p-3">{s.name}</td>
                   <td className="p-3">{s.code}</td>
                   <td className="p-3">{s.teacher}</td>
-                  <td className="p-3">{s.className}</td>
+                  <td className="p-3">{s.hrs}</td>
+                  <td className="p-3">{s.grade}</td>
 
                   <td className="p-3">
                     <button

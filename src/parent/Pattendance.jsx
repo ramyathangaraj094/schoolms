@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Tattendance() {
+function Pattendance() {
   const [activeTab, setActiveTab] = useState("student");
 
   const [students, setStudents] = useState([]);
@@ -81,56 +81,108 @@ function Tattendance() {
     <div className="p-6">
 
       {/* HEADER */}
-      <h1 className="text-2xl font-bold mb-4">Attendance Marking</h1>
-
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Attendance</h1>
+          <p> Track and manage student attendance</p>
+        </div>
+        <div>
+          
+        </div>
+      </div>
       {/* SWITCH BUTTONS */}
-      <div className="flex gap-3 mb-4">
+      <div className="flex gap-3 mb-4 mt-10">
 
-       
+        <button
+          onClick={() => setActiveTab("student")}
+          className={`px-4 py-2 rounded ${activeTab === "student"
+              ? "bg-indigo-600 text-white"
+              : "bg-gray-200"
+            }`}
+        >
+          Student Attendance
+        </button>
 
-       
+        
 
       </div>
 
-    
+      {/* SEARCH */}
+      <input
+        className="border p-2 w-1/3 mb-4"
+        placeholder="Search..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      {/* DASHBOARD */}
+      <div className="grid grid-cols-4 gap-4 mb-6">
+
+        <div className="bg-white p-4 shadow rounded text-center">
+          <p className="text-green-600 font-bold text-xl">{presentCount}</p>
+          <p>Present</p>
+        </div>
+
+        <div className="bg-white p-4 shadow rounded text-center">
+          <p className="text-red-600 font-bold text-xl">{absentCount}</p>
+          <p>Absent</p>
+        </div>
+
+        <div className="bg-white p-4 shadow rounded text-center">
+          <p className="text-yellow-600 font-bold text-xl">{lateCount}</p>
+          <p>Late</p>
+        </div>
+ <div className="bg-white p-4 shadow rounded text-center">
+          <p className="text-yellow-600 font-bold text-xl">{}</p>
+          <p>Excused</p>
+        </div>
+      </div>
 
       {/* TABLE */}
-      <div className=" overflow-hidden">
+      <div className="bg-white shadow rounded overflow-hidden">
 
-        <table className="w-1/2 bg-white  shadow">
+        <table className="w-full">
 
-          
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="p-3">STUDENT</th>
+              <th>ROLL NO</th>
+              <th>CLASS</th>
+              <th>STATUS</th>
+              <th>REMARKS</th>
+            </tr>
+          </thead>
 
           <tbody>
             {filtered.map((s) => (
               <tr key={s.id} className="border-t">
 
-                <td className="p-3">{s.name}{s.id}</td>
-               
+                <td className="p-3">{s.name}</td>
+                <td>{s.id}</td>
 
                 <td className={`font-bold ${badge(getStatus(s.id, activeTab))}`}>
                   {getStatus(s.id, activeTab)}
                 </td>
 
-                <td className="flex gap-2 p-2  rounded text-center">
+                <td className="flex gap-2 p-2">
 
                   <button
                     onClick={() => updateStatus(s.id, activeTab, "Present")}
-                    className="bg-green-300  border bg-black-500 text-white px-2 py-1 rounded"
+                    className="bg-green-500 text-white px-2 py-1 rounded"
                   >
                     Present
                   </button>
 
                   <button
                     onClick={() => updateStatus(s.id, activeTab, "Absent")}
-                    className="bg-red-300 border text-white px-2 py-1 rounded"
+                    className="bg-red-500 text-white px-2 py-1 rounded"
                   >
                     Absent
                   </button>
 
                   <button
                     onClick={() => updateStatus(s.id, activeTab, "Late")}
-                    className="bg-yellow-300 border text-white px-2 py-1 rounded"
+                    className="bg-yellow-500 text-white px-2 py-1 rounded"
                   >
                     Late
                   </button>
@@ -148,4 +200,4 @@ function Tattendance() {
   );
 }
 
-export default Tattendance;
+export default Pattendance;

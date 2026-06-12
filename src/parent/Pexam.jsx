@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function Exam() {
+export default function Pexam() {
   const defaultStudents = [
     {
       id: 1,

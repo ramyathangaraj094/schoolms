@@ -19,6 +19,14 @@ import Myclass from "./teacher/Myclass";
 import Assignment from "./teacher/Assignment";
 import Exam from "./teacher/Exam";
 import Message from "./teacher/Message";
+import Pdashboard from "./parent/Pdashboard";
+import Psidebar from "./component/Psidebar";
+import Pattendance from "./parent/Pattendance";
+import Pmessage from "./parent/Pmessage";
+import Pexam from "./parent/Pexam";
+import Pcomplaint from "./parent/Pcomplaint";
+import Student from "./teacher/Student";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +39,14 @@ function App() {
     if (saved) {
       const parsed = JSON.parse(saved);
       setUser(parsed);
-      setActivePage(parsed.role === "admin" ? "dashboard" : "tdashboard");
+      //setActivePage(parsed.role === "admin" ? "dashboard" : "tdashboard");
+      setActivePage(
+        parsed.role === "admin"
+          ? "dashboard"
+          : parsed.role === "parent"
+            ? "pdashboard"
+            : "tdashboard"
+      );
     }
   }, []);
 
@@ -39,7 +54,14 @@ function App() {
   const login = (data) => {
     localStorage.setItem("user", JSON.stringify(data));
     setUser(data);
-    setActivePage(data.role === "admin" ? "dashboard" : "tdashboard");
+    //setActivePage(data.role === "admin" ? "dashboard" : "tdashboard");
+    setActivePage(
+      data.role === "admin"
+        ? "dashboard"
+        : data.role === "parent"
+          ? "pdashboard"
+          : "tdashboard"
+    );
   };
 
   // LOGOUT FUNCTION
@@ -58,14 +80,17 @@ function App() {
     <div className="flex h-screen">
 
       {/* SIDEBAR BASED ON ROLE */}
+
       {user.role === "admin" ? (
         <Sidebar setActivePage={setActivePage} logout={logout} />
+      ) : user.role === "parent" ? (
+        <Psidebar setActivePage={setActivePage} logout={logout} />
       ) : (
         <Tsidebar setActivePage={setActivePage} logout={logout} />
       )}
 
       {/* CONTENT AREA */}
-      <div className="flex-1 p-6 bg-gray-100 overflow-auto">
+      <div className="flex-1 p-6 bg-blue-100 overflow-auto">
 
         {/* ADMIN PAGES */}
         {user.role === "admin" && (
@@ -89,10 +114,21 @@ function App() {
             {activePage === "tdashboard" && <Tdashboard />}
             {activePage === "attendance" && <Tattendance />}
             {activePage === "myclass" && <Myclass />}
+            {activePage === "students" && <Student />}
             {activePage === "assignment" && <Assignment />}
             {activePage === "exam" && <Exam />}
             {activePage === "message" && <Message />}
-           </>
+          </>
+        )}
+
+        {user.role === "parent" && (
+          <>
+            {activePage === "pdashboard" && <Pdashboard />}
+            {activePage === "pattendance" && <Pattendance />}
+            {activePage === "pmessage" && <Pmessage />}
+            {activePage === "pexam" && <Pexam />}
+            {activePage === "pcomplaint" && <Pcomplaint />}
+          </>
         )}
 
       </div>

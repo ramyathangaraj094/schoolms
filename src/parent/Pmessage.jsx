@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Message() {
+export default function Pmessage() {
   const suggestions = [
     "Generate Parent Feedback",
     "Create Meeting Summary",
